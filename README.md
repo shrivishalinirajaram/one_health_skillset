@@ -1,6 +1,6 @@
 # One Health Microbiome + Exposomics Skill Roadmap
 
-This repository tracks my technical skill-building journey across 12 months (2 hours/day), focused on computational biology, exposomics, and microbiome science in the One Health framework.
+This repository tracks my technical skill-building journey across 24 months (2 hours/day), focused on computational biology, exposomics, and microbiome science in the One Health framework.
 
 ---
 
@@ -875,7 +875,7 @@ Focus: organized, discoverable, interoperable, and reusable (FAIR). Master struc
 
 ## 14. Cloud & HPC Integration
 
-Total Time: ~2 weeks  
+Total Time: ~3 weeks  
 Focus: high-performance clusters (HPCs) and cloud platforms like AWS, GCP, Terra, or DNAnexus
 
 <details>
@@ -919,3 +919,260 @@ Focus: high-performance clusters (HPCs) and cloud platforms like AWS, GCP, Terra
 | Use Conda and Singularity for environments | Avoid system-wide installs                                | Prevents “works here but not there” issues                 |
 | Transfer data securely                     | Use `rsync`, `scp`, `sftp`, or cloud-specific CLIs        | Preserve permissions and timestamps                        |
 | Sync large data efficiently                | Use `rclone`, `wget -c`, `aria2c` for resumable downloads | Crucial for multi-TB exposomics or metaproteomics datasets |
+
+### 14.5. Cost and Resource Management
+
+| Sub-Skill                | Learn To...                                        | Notes                                            |
+| ------------------------ | -------------------------------------------------- | ------------------------------------------------ |
+| Monitor usage            | Use `sacct`, `htop`, `du -sh`, billing dashboards  | Prevent quota violations or surprise cloud bills |
+| Spot instance strategies | Use preemptible/spot instances for cheaper runs    | Great for fault-tolerant pipelines               |
+| Budget-aware planning    | Estimate compute time × cost × data transfer ahead | Plan ahead for shared or grant-funded platforms  |
+
+</details>
+
+---
+
+## 15. Machine Learning & Predictive Modeling
+
+Total Time: ~12 weeks  
+Focus: supervised and unsupervised ML methods to classify, cluster, regress, and interpret
+
+<details>
+<summary>Know More</summary>
+
+### 15.1. Foundations of ML for Biologists
+
+| Sub-Skill                       | Learn To...                                                         | Notes                                              |
+| ------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------- |
+| Understand learning paradigms   | Supervised vs unsupervised, regression vs classification            | Know what to use for what goal                     |
+| Cross-validation & resampling   | k-fold CV, stratified CV, leave-one-out, bootstrap                  | Avoid overfitting on sparse high-dimensional data  |
+| Train-test splitting            | Use `train_test_split()` (Py) or `caret::createDataPartition()` (R) | Always track random seed and ensure stratification |
+| Confusion matrix and ROC curves | Evaluate classification performance                                 | `pROC`, `scikit-learn`, `yardstick`                |
+
+### 15.2. Supervised Learning Models
+
+| Model Type                               | Learn To...                                    | R/Python Tools                                           |
+| ---------------------------------------- | ---------------------------------------------- | -------------------------------------------------------- |
+| Logistic regression                      | Build baseline interpretable classifiers       | `glm()`, `statsmodels`, `sklearn.linear_model`           |
+| Random forest (RF)                       | Handle non-linear, high-dimensional data       | `ranger`, `randomForest`, `sklearn.ensemble`             |
+| Support vector machines (SVM)            | Classify in complex feature spaces             | `e1071`, `kernlab`, `sklearn.svm`                        |
+| Gradient boosting (XGBoost/LightGBM)     | Boosted decision trees with regularization     | `xgboost`, `lightgbm`, `catboost`                        |
+| Penalized regression (LASSO, ElasticNet) | Perform feature selection & shrinkage          | `glmnet`, `sklearn.linear_model`                         |
+| Naive Bayes                              | Probabilistic classifier for sparse count data | Good for 16S datasets with compositional transformations |
+| Deep learning (optional)                 | Use MLPs, VAEs, CNNs, Transformers             | `keras`, `torch`, `PyTorch`, `scvi-tools` (advanced)     |
+
+### 15.3. Unsupervised Learning & Clustering
+
+| Task                     | Learn To...                                                | Tools                                           |
+| ------------------------ | ---------------------------------------------------------- | ----------------------------------------------- |
+| Dimensionality reduction | PCA, t-SNE, UMAP, MDS                                      | `prcomp`, `umap-learn`, `Rtsne`, `scikit-learn` |
+| Feature clustering       | k-means, hierarchical, DBSCAN                              | `stats::hclust`, `fpc`, `scikit-learn`          |
+| Sample clustering        | Discover subtypes of exposure response or microbial states | Useful for phenotype discovery                  |
+| Distance metrics         | Use Aitchison, Bray-Curtis, cosine, Jaccard                | Impacts clustering and ordination               |
+
+### 15.4. Model Interpretation & Feature Importance
+
+| Sub-Skill                     | Learn To...                                    | Tools                                             |
+| ----------------------------- | ---------------------------------------------- | ------------------------------------------------- |
+| Variable importance           | Use permutation-based or impurity-based scores | `varImpPlot()`, `vip`, `sklearn.inspection`       |
+| SHAP values                   | Visualize model predictions per feature        | `shap` (Python), `iml` (R)                        |
+| LIME                          | Locally interpret model predictions            | `lime` (R/Py)                                     |
+| Visualize decision boundaries | For low-dimensional classifiers                | Especially useful for SVM and logistic regression |
+
+### 15.5. Multi-Omics & High-Dimensional Specific Methods
+
+| Sub-Skill             | Learn To...                                               | Tools                                            |
+| --------------------- | --------------------------------------------------------- | ------------------------------------------------ |
+| Sparse models         | Use sPLS-DA, LASSO, DIABLO for feature selection          | `mixOmics`, `glmnet`, `mlr3`                     |
+| Multi-view models     | Use `DIABLO`, `MOFA`, `iClusterPlus`, `mint.block.splsda` | Integrates datasets with distinct feature spaces |
+| Ensemble models       | Combine RF + SVM + GLM for robustness                     | `caretEnsemble`, `superlearner`, `mlxtend`       |
+| Autoencoders and VAEs | Perform latent space discovery and denoising              | `keras`, `PyTorch`, `scvi-tools`, `DeepBioSim`   |
+
+</details>
+
+---
+
+## 16. Simulation & Synthetic Data Generation
+
+Total Time: ~6 weeks  
+Focus: mimic real-world complexity — including sparsity, zero-inflation, overdispersion, compositionality, time series, and interactions. Use these datasets to benchmark tools, test hypotheses, validate models, and develop own pipelines.
+
+<details>
+<summary>Know More</summary>
+
+### 16.1. Understand Why Simulation Matters
+
+| Simulation Use Case   | Why It's Critical                                                |
+| --------------------- | ---------------------------------------------------------------- |
+| Benchmarking methods  | Compare DA tools (DESeq2 vs ALDEx2 vs ANCOM-BC) on known truth   |
+| Power estimation      | Determine sample size needed to detect known effect              |
+| Stress-testing models | See how ML behaves under noise, dropout, overfitting             |
+| Developing new tools  | Create ground-truth datasets to validate your package or method  |
+| Training ML pipelines | Create controlled training/test splits when real data is limited |
+
+### 16.2. Simulate Microbiome Data (Counts, Compositional)
+
+| Sub-Skill                             | Learn To...                                                        | Tools                                                     |
+| ------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------- |
+| Simulate zero-inflated count matrices | Use ZINB, DM, hurdle, NB, or log-normal                            | `NBZIMM`, `zinbwave`, `metagenomeSeq::fitZig()`, `simPop` |
+| Control sparsity and compositionality | Simulate rare taxa, fixed total reads, or constant sum constraints | Custom R functions, `scMicrobiomeSim`, `phyloseqSim`      |
+| Add group effects                     | Simulate DA taxa with known fold change                            | Custom `rnbinom()` loops, `mixturemodels`                 |
+| Add batch effects or confounders      | Include nested or crossed effects (e.g., cage, site, diet)         | `lme4`, `simstudy`                                        |
+| Simulate longitudinal data            | Use splines, autoregressive error, or custom time series           | `splines`, `metalonda`, `MaSigPro`, `splineTimeR`         |
+
+### 16.3. Simulate Metatranscriptomic, Proteomic, or Functional Data
+
+| Sub-Skill                         | Learn To...                                      | Tools                                                    |
+| --------------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
+| Generate gene expression matrices | Use realistic fold change, dropout, and noise    | `polyester`, `compcodeR`, `scDesign2`                    |
+| Add GO term enrichment effects    | Simulate functional enrichment across conditions | Custom ID mapping + signal injection                     |
+| Simulate MS intensities           | Use gamma/normal distributions for peak areas    | `MSstats`, `mssims`, custom `rnorm()`                    |
+| Functional pathway simulation     | Simulate taxon–function abundance matrices       | `PICRUSt2` + pathway weighting, synthetic mapping tables |
+
+### 16.4. Simulate Exposure / Chemical Data (Exposomics)
+
+| Sub-Skill                                 | Learn To...                                                     | Tools                                                |
+| ----------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| Simulate multi-chemical exposure matrices | Create concentration data with realistic co-occurrence patterns | `mvtnorm`, `BayesNetSim`, custom correlation matrix  |
+| Add exposure–omics interaction            | Simulate effect of chemical on microbe/gene abundance           | Define `beta` effect sizes manually                  |
+| Simulate external vs internal exposome    | Model difference between exposure and host response             | 2-layer simulation strategy                          |
+| Add noise, limit of detection effects     | Simulate censored or thresholded data (e.g., LODs)              | `truncnorm`, `survival::Surv()` with censoring flags |
+
+### 16.5. Deep Generative Models (Advanced)
+
+| Model                            | Use For                                            | Tools                                           |
+| -------------------------------- | -------------------------------------------------- | ----------------------------------------------- |
+| Variational autoencoders (VAE)   | Generate realistic latent features for multi-omics | `keras`, `scvi-tools`, `DeepBioSim` (your tool) |
+| GANs or diffusion models         | Simulate realistic sample distributions            | `tensorflow`, `torch`, `diffusers`, `scGen`     |
+| Dirichlet-multinomial simulators | Match real microbiome feature distributions        | `dirmult`, `HMP`, `DMsim`                       |
+| Time-aware models                | Learn longitudinal or autoregressive dynamics      | `RecurrentVAEs`, `GaussianProcesses`, `LongVAE` |
+
+### 16.6. Evaluate Simulated Data Fidelity
+
+| Sub-Skill                          | Learn To...                                                     | Tools                                                |
+| ---------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| Compare distributions to real data | Use KS test, Aitchison distances, correlation                   | `ks.test`, `compositions`, `vegan::vegdist()`        |
+| Check diversity indices            | Simulated alpha/beta diversity should resemble empirical values | `phyloseq`, `microbiome::alpha()`                    |
+| Visualize structure                | Use PCA, t-SNE, heatmaps to confirm signal and separability     | `prcomp`, `Rtsne`, `pheatmap`                        |
+| Annotate ground truth              | Store true class labels, fold changes, and noise levels         | So benchmarking has measurable accuracy (TP/FP/etc.) |
+
+</details>
+
+---
+
+## 16. Ontology Mapping & Semantic Harmonization
+
+Total Time: ~5 weeks  
+Focus: standardized, machine-readable, and biologically meaningful annotations, cross-study comparison, integration, and semantic search.
+
+<details>
+<summary>Know More</summary>
+
+### 17.1. Understand Ontology Basics
+
+| Sub-Skill                                     | Learn To...                                                      | Concepts                                                            |
+| --------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------- |
+| What is an ontology?                          | Understand terms, relationships (is\_a, part\_of), and hierarchy | Ontologies = structured knowledge graphs                            |
+| Difference between vocabularies vs ontologies | Vocab = flat terms. Ontology = terms + relationships + context   | Ontologies have parents, children, synonyms                         |
+| Components                                    | Understand IDs, labels, synonyms, definitions, namespaces        | e.g., `UBERON:0001836`, "saliva", "oral fluid", `is_a` "body fluid" |
+
+### 17.2. Key Ontologies in Microbiome + Exposomics + One Health
+
+| Domain                  | Ontologies                                                                        |
+| ----------------------- | --------------------------------------------------------------------------------- |
+| Sample type / tissue    | **UBERON** (anatomy), **FMA**, **BTO**                                            |
+| Environmental context   | **EnvO** (Environmental Ontology), **ENVO-lite**                                  |
+| Experimental metadata   | **EFO** (Experimental Factor Ontology), **OBI**                                   |
+| Host species & taxonomy | **NCBITaxon**, **VTO** (vertebrate), **ITIS**                                     |
+| Chemicals & exposures   | **CHEBI** (chemicals), **ExO** (Exposome Ontology), **CompTox**, **MeSH D-terms** |
+| Microbial function      | **GO**, **KEGG BRITE**, **MetaCyc**, **Reactome**                                 |
+| Disease associations    | **MONDO**, **DOID**, **HPO**                                                      |
+| Microbiome metadata     | **MIxS**, **BioSamples**, **MGnify Terms**                                        |
+
+### 17.3. Map and Validate Ontology Terms in Your Metadata
+
+| Sub-Skill                       | Learn To...                                                          | Tools                                                         |
+| ------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Look up ontology terms          | Search using label, synonym, ID, or definition                       | **OLS (Ontology Lookup Service)**, **Ontobee**, **BioPortal** |
+| Assign term IDs                 | Link `"oral cavity"` → `UBERON:0000167`, `"feces"` → `ENVO:02000057` | Store both label + ID in metadata                             |
+| Validate terms programmatically | Use OLS4R (R), `ols-client` (Python), or REST APIs                   | Automate annotation pipelines                                 |
+| Match terms via synonyms        | Handle common non-standard entries (e.g., "stool", "poop" → "feces") | Use fuzzy match, `stringdist`, `agrep`                        |
+| Handle multiple ontologies      | Use preferred hierarchy or cross-map (`EFO → MeSH`)                  | BioPortal xrefs or OBO cross-references                       |
+
+### 17.4. Ontology Integration in Pipelines and Outputs
+
+| Sub-Skill                            | Learn To...                                                   | Use Cases                                            |
+| ------------------------------------ | ------------------------------------------------------------- | ---------------------------------------------------- |
+| Store ontology metadata with outputs | Save alongside feature tables (e.g., GO term name, ID, level) | So your DA results carry functional context          |
+| Include in phylogenies/networks      | Overlay node info with term-based categories                  | e.g., color samples by `ENVO` biome                  |
+| Annotate sample sheets               | Add `ontology_term_id`, `ontology_label`, `source_ontology`   | MIxS-compliant metadata structure                    |
+| Enable semantic querying             | Query: "find samples with air biome AND lung tissue"          | Powered by ontology annotations in database backends |
+
+### 17.5. Semantic Harmonization Across Studies
+
+| Sub-Skill                            | Learn To...                                                 | Tools & Concepts                         |
+| ------------------------------------ | ----------------------------------------------------------- | ---------------------------------------- |
+| Align metadata from multiple sources | Map “oral swab” (study A) and “saliva” (study B) → UBERON   | Enables clean cross-cohort meta-analysis |
+| Collapse terms by parent category    | e.g., group all "aquatic biome" terms under `ENVO:00002030` | Use ontology hierarchy traversal         |
+| Map multiple ontologies together     | CHEBI → KEGG → MetaCyc → GO                                 | Build layered functional insight         |
+| Harmonize chemical metadata          | Match synonyms, IDs, InChIs, SMILES, and classes            | Use CompTox Dashboard or PubChem API     |
+
+</details>
+
+---
+
+## 18. Collaboration, Deployment & Translation
+
+Total Time: ~5 weeks  
+Focus: collaborate with interdisciplinary teams, deploy tools and pipelines, and translate results into real-world One Health decisions.
+
+<details>
+<summary>Know More</summary>
+
+### 18.1. Collaborative Practices in Multi-Team Projects
+
+| Sub-Skill                                                      | Learn To...                                                  | Tools & Practices                                        |
+| -------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------- |
+| Work with biologists, clinicians, and environmental scientists | Speak each group’s language; clarify data assumptions        | Use integrative metadata templates and shared glossaries |
+| Use Git collaboratively                                        | Branching, forking, pull requests, merge conflicts           | GitHub issues, `CONTRIBUTING.md`, project boards         |
+| Maintain collaborative pipelines                               | Keep YAML configs and environment files modular and editable | Use `config.yaml`, `params.json`, or `.env` files        |
+| Create shared cloud workspaces                                 | Terra, DNAnexus, Google Drive or AWS S3 with IAM             | Permissions, reproducible notebooks, synced outputs      |
+| Co-author manuscripts efficiently                              | Use Overleaf (LaTeX) or Quarto with GitHub sync              | Avoid version conflicts, enable tracked edits            |
+
+### 18.2. Deploy Tools, Pipelines, or Dashboards
+
+| Sub-Skill                              | Learn To...                                                         | Tools                                           |
+| -------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------- |
+| Package your pipeline for others       | Use `snakemake --containerize`, `conda-lock`, or Docker             | Push to GitHub + Zenodo/DOI                     |
+| Make R/Python packages installable     | `devtools`, `usethis`, `reticulate`, `setup.py`, `pip install -e .` | Make docs with `pkgdown`, `quarto`, `sphinx`    |
+| Build web dashboards for non-coders    | Use `Shiny`, `Dash`, `Streamlit`, `Observable`                      | Deploy on shinyapps.io, Hugging Face, or Heroku |
+| Host static documentation or tutorials | Use GitHub Pages, Netlify, or ReadTheDocs                           | Good for protocols, wikis, or project portals   |
+
+### 18.3. Communicate Results to Diverse Stakeholders
+
+| Sub-Skill                                         | Learn To...                                                      | Channels                                           |
+| ------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------- |
+| Build science communication artifacts             | Visual abstracts, explainer diagrams, blog posts                 | Canva, BioRender, Quarto blogs                     |
+| Tailor data summaries for non-academics           | Summarize findings for farmers, veterinarians, or policy leaders | Use interpretable plots, glossaries, key messages  |
+| Present findings to stakeholders                  | Short slide decks, executive summaries, clear visuals            | Avoid jargon, emphasize impact                     |
+| Translate results into actionable recommendations | Link findings to surveillance, prevention, or regulation         | Highlight risk levels, trends, early warning signs |
+
+### 18.4. Enable Translation in One Health Contexts
+
+| Domain                   | Translational Strategy                                                              | Notes                                        |
+| ------------------------ | ----------------------------------------------------------------------------------- | -------------------------------------------- |
+| Human health             | Anticipate how exposome–microbiome interactions inform early diagnostics, therapy   | Personalized recommendations                 |
+| Animal health            | Use microbiome insights to improve feed, reduce antibiotic usage, prevent outbreaks | Livestock & zoonotic pathogen surveillance   |
+| Environmental monitoring | Track microbial biomarkers of pollution, water safety, AMR hotspots                 | Early detection and bioremediation triggers  |
+| Policy & public health   | Use FAIR pipelines to support reproducible decision-making                          | Interact with NGOs, agencies (EPA, WHO, FAO) |
+
+### 18.5. Build a Deployable, FAIR-Compliant Portfolio
+
+| Sub-Skill                            | Learn To...                                                | Tools                                        |
+| ------------------------------------ | ---------------------------------------------------------- | -------------------------------------------- |
+| Assign persistent identifiers (DOIs) | Use Zenodo, Figshare, OSF                                  | Link to GitHub releases                      |
+| Create full project documentation    | README, LICENSE, environment.yml, inputs/outputs           | Mimic professional repositories              |
+| Publish metadata and data openly     | Submit to MGnify, SRA, BioSamples, GNPS, PANGEA            | Respect privacy/ethics for human data        |
+| Track provenance & reproducibility   | Ensure workflow + code + data are re-runnable from scratch | Use containerized + version-controlled setup |
+
+---
