@@ -732,7 +732,6 @@ Focus: control over accessing public repositories, downloading datasets, parsing
 
 ---
 
-
 ## 12. Data Visualization & Interactive Communication
 
 Total Time: ~4 weeks  
@@ -807,3 +806,116 @@ Common plots - must master:
 </details>
 
 ---
+
+## 13. Data Management, FAIR Principles & Metadata Handling
+
+Total Time: ~2 weeks  
+Focus: organized, discoverable, interoperable, and reusable (FAIR). Master structured metadata annotation, version control, ontology usage, and public deposition across projects.
+
+<details>
+<summary>Know More</summary>
+
+### 13.1. Project Directory Structure & Naming Standards
+
+| Sub-Skill                         | Learn To...                                                            | Notes                                    |
+| --------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------- |
+| Modular project structure         | Use `raw/`, `processed/`, `results/`, `scripts/`, `logs/`, `metadata/` | Adopt from `cookiecutter-data-science`, `nf-core` |
+| File naming consistency           | Encode sample, date, version, and processing stage                     | e.g., `G1_Caries_TP1_2024_trimmed.fastq.gz`       |
+| Use relative paths                | Avoid absolute paths (`/home/user/`) to maximize portability           | Use `here::here()` or `os.path.abspath()`         |
+| Organize outputs by analysis step | Keep each pipeline module’s outputs in a defined subdirectory          | Easier to debug, rerun, or review                 |
+
+### 13.2. Metadata Collection, Cleaning, and Curation
+
+| Sub-Skill                       | Learn To...                                                           | Tools                                                        |
+| ------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Design metadata templates       | Include sample ID, timepoint, host species, condition, exposure, etc. | Make these required from collaborators                       |
+| Reshape metadata formats        | Convert between wide and long format, ensure tidy structure           | Use `pivot_longer()`, `reshape2`, `melt()`                   |
+| Clean missing/invalid data      | Detect blanks, typos, inconsistent units                              | `janitor`, `dplyr::mutate(across())`, `assertthat`, `pandas` |
+| Harmonize categorical variables | Standardize case, spelling, and codes                                 | e.g., `Yes` vs `yes` vs `TRUE` vs `1`                        |
+
+### 13.3. Ontology-Aware Annotation & Controlled Vocabularies
+
+| Sub-Skill                            | Learn To...                                                    | Examples                                                              |
+| ------------------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Apply domain-specific vocabularies   | Use **MIxS**, **EnvO**, **UBERON**, **CHEBI**, **PO**, **EFO** | For One Health, exposome, and microbiome interoperability             |
+| Map metadata terms to ontology IDs   | Link `saliva` → `UBERON:0001836`                               | Enables semantic search and dataset alignment                         |
+| Use term validators                  | Use `ontofox`, `obofoundry`, `ols4R`, `ontologyLookupService`  | Check term validity and retrieve labels                               |
+| Integrate ontology terms in metadata | Store alongside readable label and source ontology             | e.g., `sample_type = "oral cavity"`, `ontology_id = "UBERON:0001836"` |
+
+### 13.4. FAIR Principles Implementation
+
+| Principle     | Learn To...                                              | Tools & Notes                                          |
+| ------------- | -------------------------------------------------------- | ------------------------------------------------------ |
+| Findable      | Assign unique, stable identifiers to datasets and files  | Use DOIs via Zenodo, figshare, or OSF                  |
+| Accessible    | Store data in trusted public or internal repositories    | SRA, ENA, Zenodo, MG-RAST, MetaboLights                |
+| Interoperable | Use standard formats (TSV, JSON, biom) and ontologies    | Avoid Excel files with merged cells, color codes, etc. |
+| Reusable      | Provide full metadata, code, documentation, and licenses | CC-BY, MIT, or GPL for open use                        |
+
+### 13.5. Public Repository Submission & Archiving
+
+| Sub-Skill                      | Learn To...                                                      | Platform                                           |
+| ------------------------------ | ---------------------------------------------------------------- | -------------------------------------------------- |
+| Submit to NCBI SRA or ENA      | Use BioProject → BioSample → Run structure                       | Use `sra-tools`, `ena-upload-cli`, or Webin portal |
+| Archive functional annotations | Upload to Zenodo, include README and schema                      | For pathway tables, gene sets, GO mappings         |
+| Deposit multi-omics studies    | Use MGnify, GNPS, MetaboLights                                   | Link all layers to BioSample accessions            |
+| Reference your data in papers  | Include accession numbers and DOIs in figure legends and methods | This is a reviewer expectation                     |
+
+### 13.6. Reproducibility Tracking & Versioning
+
+| Sub-Skill                | Learn To...                                                       | Tools                                                   |
+| ------------------------ | ----------------------------------------------------------------- | ------------------------------------------------------- |
+| Track data provenance    | Maintain a data log: where it came from, how it was processed     | Use `CHANGELOG.md`, `data_manifest.csv`, Snakemake DAGs |
+| Version datasets         | Snapshot raw + processed data with time/version label             | e.g., `v1.0`, `v1.1-fixed-headers`, `v2.0-annotation`   |
+| Integrate with Git       | Track metadata, scripts, configs — avoid tracking raw FASTQ files | Use `.gitignore` for large/binary files                 |
+| Create data dictionaries | Document every column in your metadata and output tables          | Describe variable names, units, and allowed values      |
+
+</details>
+
+---
+
+## 14. Cloud & HPC Integration
+
+Total Time: ~2 weeks  
+Focus: high-performance clusters (HPCs) and cloud platforms like AWS, GCP, Terra, or DNAnexus
+
+<details>
+<summary>Know More</summary>
+
+### High Performance Computing (HPC) Basics
+
+| Sub-Skill                            | Learn To...                                                             | Tools & Concepts                           |
+| ------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------ |
+| Navigate login nodes & scratch space | Understand `/home`, `/scratch`, `/work`, `/tmp`                         | Minimize I/O and memory issues             |
+| Use job schedulers                   | Submit, monitor, cancel jobs via `sbatch`, `squeue`, `scancel`, `sacct` | SLURM (Argon), PBS, or LSF                 |
+| Write SLURM job scripts              | Set `#SBATCH` parameters: time, memory, cpus, output logs               | Automate your Snakemake/Nextflow runs      |
+| Allocate resources wisely            | Choose appropriate `--cpus-per-task`, `--mem`, and `--time`             | Prevents wasting or crashing jobs          |
+| Debug failed jobs                    | Read `.err` logs, SLURM exit codes, check quota                         | Use `--mail-type=FAIL` to get email alerts |
+
+### 14.2. Run Workflows on HPC
+
+| Sub-Skill                     | Learn To...                                                                 | Tools                                                    |
+| ----------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Run Snakemake with SLURM      | Use `--cluster 'sbatch ...' --jobs 50` or use a cluster profile             | Define `cluster.yaml` for rule-specific resource control |
+| Run Nextflow on HPC           | Use `-profile slurm` or custom config with `process.executor = 'slurm'`     | Modular config allows full portability                   |
+| Use `singularity` on clusters | Replace Docker with `.sif` for containerized tools                          | `--use-singularity` in Snakemake/Nextflow                |
+| Cache environments            | Prevent repeated downloads by using `~/.snakemake/conda/` or shared modules | Share across jobs for efficiency                         |
+
+### 14.3. Cloud Platform Essentials
+
+| Sub-Skill                        | Learn To...                                                      | Platforms                                 |
+| -------------------------------- | ---------------------------------------------------------------- | ----------------------------------------- |
+| Cloud vs HPC tradeoffs           | Understand cost, scalability, persistence, access                | Cloud = on-demand; HPC = fixed queues     |
+| Use AWS S3 buckets               | Upload/download files using `aws s3 cp` or `boto3`               | Store reference databases, sample outputs |
+| Launch workflows in Terra        | Run WDL-based workflows from Dockstore or FireCloud              | For genomics projects at scale            |
+| Use DNAnexus or Seven Bridges    | GUI-based, drag-and-drop interfaces for clinical-grade pipelines | Useful for regulated environments         |
+| Use Nextflow Tower               | Monitor Nextflow runs on AWS/GCP with real-time dashboards       | Visualize DAGs, logs, and metrics         |
+| Use Google Colab for prototyping | Great for rapid notebooks, but not for big data                  | Useful for teaching or pilot testing      |
+
+### 14.4. Environment Portability Across Platforms
+
+| Sub-Skill                                  | Learn To...                                               | Tools                                                      |
+| ------------------------------------------ | --------------------------------------------------------- | ---------------------------------------------------------- |
+| Build platform-agnostic workflows          | Always use config files, containers, and modular scripts  | Makes HPC/cloud transitions seamless                       |
+| Use Conda and Singularity for environments | Avoid system-wide installs                                | Prevents “works here but not there” issues                 |
+| Transfer data securely                     | Use `rsync`, `scp`, `sftp`, or cloud-specific CLIs        | Preserve permissions and timestamps                        |
+| Sync large data efficiently                | Use `rclone`, `wget -c`, `aria2c` for resumable downloads | Crucial for multi-TB exposomics or metaproteomics datasets |
