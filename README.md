@@ -476,3 +476,258 @@ Focus: Gene and protein functional annotation, pathway enrichment, metabolic rec
 
 ---
 
+## 8: Multi-Omics Integration & Modeling
+
+Total Time: ~5 weeks  
+Focus: combine, correlate, and co-model different layers of omics (e.g., metagenomics + transcriptomics + metaproteomics + metabolomics + exposomics) 
+
+<details>
+<summary>Know More</summary>
+
+### 8.1. Pre-Integration Harmonization
+
+| Sub-Skill                       | Learn To...                                               | Tools & Notes                                             |
+| ------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| Normalize each omics table      | Apply within-omics normalization (CLR, VST, log2, Pareto) | `DESeq2::vst`, `metagenomeSeq::cumNorm`, `metaboAnalystR` |
+| Filter uninformative features   | Remove low-variance or sparse features to avoid noise     | `nearZeroVar()`, `rowVars()`, prevalence filtering        |
+| Align sample IDs across tables  | Ensure perfect match across omics layers                  | Use `intersect(colnames(...))`, consistent metadata       |
+| Match feature IDs to annotation | Harmonize feature-level info (e.g., gene symbols, KO IDs) | Ensures cross-mapping is valid                            |
+
+### 8.2. Unsupervised Multi-Omics Integration
+
+| Sub-Skill                         | Learn To...                                             | Tools & Methods                                                   |
+| --------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- |
+| Joint dimension reduction         | Use multiblock PCA or sGCCA to extract shared structure | **mixOmics::rGCCA**, **PMA::CCA**, **DIABLO (unsupervised mode)** |
+| Cluster samples across omics      | Perform consensus clustering or integrative clustering  | `iClusterPlus`, `MOFA`, `NMF`                                     |
+| Co-abundance network construction | Build networks of features that co-vary across omics    | `WGCNA`, `SpiecEasi`, `cooccur`, `CoNet`                          |
+| Multitable correlation heatmaps   | Plot cross-omics correlation matrices                   | `mixOmics::plotVar`, `corrplot`, `pheatmap`                       |
+
+### 8.3. Supervised Multi-Omics Integration
+
+| Sub-Skill                           | Learn To...                                                 | Tools & Methods                                             |
+| ----------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| Predict conditions from multi-omics | Use classifiers trained on multiple omics blocks            | **DIABLO**, **Random Forest**, **SVM**, `caret::train()`    |
+| Identify discriminative features    | Detect key multi-omics markers that distinguish groups      | `mixOmics::selectVar()`, VIP scores, SHAP values            |
+| Integrate covariates & confounders  | Adjust models for group, timepoint, diet, etc.              | Include as covariates or random effects in model formula    |
+| Visualization                       | Plot sample projection, circos plots, or component loadings | `circlize`, `ggplot2`, `mixOmics::plotIndiv()`, `plotVar()` |
+
+### 8.4. Cross-Modal Correlation and Causal Modeling
+
+| Sub-Skill                   | Learn To...                                            | Tools & Methods                                         |
+| --------------------------- | ------------------------------------------------------ | ------------------------------------------------------- |
+| Feature–feature correlation | Identify associations between genes–metabolites–taxa   | `psych::corr.test()`, `sparcc`, `cclasso`, `HAllA`      |
+| Multi-omics networks        | Construct multi-layered bipartite or tripartite graphs | `igraph`, `networkD3`, `ggraph`, `mixOmics::network()`  |
+| Time-resolved modeling      | Integrate temporal data across omics layers            | `metalonda`, `MaSigPro`, `MEtime`, `LongitudinalDIABLO` |
+| Causal inference (optional) | Use DAGs or Bayesian networks to model causality       | `bnlearn`, `DoWhy`, `SEM`, `gCastle`                    |
+
+### 8.5. Biological Interpretation of Integrated Models
+
+| Sub-Skill                   | Learn To...                                                  | Tools & Outputs                                                         |
+| --------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| Map components to biology   | Interpret component loadings as functional or taxonomic axes | Annotate with KEGG/GO info                                              |
+| Functional module discovery | Identify multi-omic features converging on same pathway      | e.g., “Gene X, Protein Y, Metabolite Z all part of Lysine biosynthesis” |
+| Metadata association        | Relate integrated signatures to exposure, disease, behavior  | Use LMs, GLMMs, or custom modeling                                      |
+| Report generation           | Generate reproducible reports from integration results       | `quarto`, `Rmd`, interactive dashboards (`shiny`, `dash`)               |
+
+### 8.6. Integration Frameworks - Must Master
+
+| Framework                | Type                        | Notes                                                              |
+| ------------------------ | --------------------------- | ------------------------------------------------------------------ |
+| **mixOmics**             | sGCCA, DIABLO, MINT         | Flexible, scalable, supports supervised + unsupervised integration |
+| **iClusterPlus**         | Integrative clustering      | Bayesian hierarchical model, good for discovery                    |
+| **MOFA/MOFA2**           | Factor analysis             | Very powerful latent space model                                   |
+| **WGCNA**                | Co-expression networks      | Can be extended for multi-omics if processed correctly             |
+| **HAllA**                | Feature-feature association | Hypothesis-free, correlation discovery                             |
+| **metalonda / MaSigPro** | Longitudinal integration    | Time-aware DE modeling                                             |
+| **mintR / MINTmixOmics** | Cohort integration          | Multi-batch integration (e.g., different animal/human groups)      |
+
+</details>
+
+---
+
+## 9. Experimental Context Awareness
+
+Total Time: ~2 weeks  
+Focus: ask better questions, detect biases, adjust for confounders, and interpret results accurately.
+
+<details>
+<summary>Know More</summary>
+
+### 9.1. Microbiome and Multi-Omics Study Design
+
+| Sub-Skill                                          | Learn To...                                                                       | Notes                                               |
+| -------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------- |
+| Understand cross-sectional vs longitudinal designs | Know when repeated measures require paired models                                 | Choose GLMM vs simple ANOVA correctly               |
+| Biological vs technical replicates                 | Distinguish what replicates truly capture                                         | Avoid overestimating power or missing batch effects |
+| Confounder identification                          | Identify age, diet, medication, sex, cage effect (animals), housing (environment) | Plan to adjust or stratify                          |
+| Matching strategies                                | Understand matched-case control, paired samples, or stratified sampling           | Influences the modeling framework                   |
+| Sample size calculation                            | Estimate power given variability and expected effect size                         | Use `pwr`, `simr`, or simulation for guidance       |
+
+### 9.2. Sequencing Technology & Protocol Artifacts
+
+| Sub-Skill                                    | Learn To...                                                                  | Notes                                                     |
+| -------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Understand amplicon vs shotgun tradeoffs     | Resolution, cost, amplification bias                                         | 16S gives genus/species, shotgun can give strain/function |
+| Biases from extraction kits                  | Know how DNA/RNA/protein extraction method can shape composition             | Choose batch correction accordingly                       |
+| Batch effects from library prep or sequencer | Understand when batch correction is necessary                                | Use `Combat`, `removeBatchEffect()`, or random effects    |
+| rRNA depletion vs poly-A selection           | Impacts metatranscriptomics — do you have total RNA or eukaryotic mRNA only? | Guides filtering strategy                                 |
+| Multi-batch/multi-platform datasets          | Identify issues with mixed Illumina/Nanopore platforms                       | Use `MINT` or batch-aware integration methods             |
+
+### 9.3. Sample Type, Source, and Environmental Matrix
+
+| Sub-Skill                         | Learn To...                                                            | Examples                                                    |
+| --------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Biological matrix                 | Saliva, plaque, stool, blood, air filters, water, soil                 | Each has unique challenges (e.g., inhibitors, low biomass)  |
+| Human vs animal vs environmental  | Understand matrix-specific variation in microbiome + exposome profiles | Needed for One Health-aware modeling                        |
+| Invasive vs non-invasive sampling | Know limits of what can be measured                                    | Interpreting host transcriptomics from buccal swabs ≠ blood |
+| Storage & transport artifacts     | Freeze-thaw, preservative usage, time-to-processing                    | Introduces noise or biases if unaccounted for               |
+
+### 9.4. Exposure Context and Toxicology Considerations
+
+| Sub-Skill                         | Learn To...                                                                                          | Notes                                                         |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Exposure route & dose             | Oral, dermal, inhaled; acute vs chronic                                                              | Needed to model biologically relevant gradients               |
+| Chemical classes                  | Know what VOCs, heavy metals, endocrine disruptors, and antibiotics do                               | Guides functional annotation and hypothesis generation        |
+| Host–microbe–chemical interaction | Understand tripartite effects: e.g., antibiotics reduce diversity; diet alters xenobiotic metabolism | Can confound or explain findings                              |
+| Bioaccumulation & persistence     | Know which chemicals stick around and impact long-term                                               | e.g., PFAS in One Health datasets                             |
+| Internal vs external exposome     | External = environment; Internal = host response                                                     | Can be profiled via transcriptomics, metabolomics, proteomics |
+
+### 9.5. Metadata Quality and Annotation Depth
+
+| Sub-Skill                          | Learn To...                                                                                | Examples                                    |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| Identify critical missing metadata | Antibiotic use? Age? Sample collection time?                                               | Lack of metadata = limited interpretability |
+| Standardize metadata vocabularies  | Use MIxS, EnvO, UBERON, CHEBI                                                              | Improves interoperability and integration   |
+| Assess granularity of metadata     | Is exposure “yes/no” or “ug/m3”? Is diet “vegetarian” or detailed macronutrient breakdown? | Influences modeling choice                  |
+| Hierarchical modeling readiness    | Know when samples are nested (e.g., repeated stool samples per subject per cage)           | Required for proper random effects design   |
+
+</details>
+
+---
+
+## 10. Tool Development & Packaging
+
+Total Time: ~5 weeks  
+Focus: analysis package, a command-line utility, or a reproducible function library
+
+<details>
+<summary>Know More</summary>
+
+### 10.1. R Package Development (CRAN & Bioconductor-Ready)
+
+| Sub-Skill                     | Learn To...                                                  | Tools & Notes                                          |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| Initialize package structure  | Use `usethis::create_package()` or RStudio’s devtools wizard | Creates `R/`, `man/`, `DESCRIPTION`, `NAMESPACE`, etc. |
+| Write functions with roxygen2 | Document functions with `#'` tags above each function        | Use `devtools::document()` to auto-generate help files |
+| Define metadata files         | Fill `DESCRIPTION`, `NAMESPACE`, `README.md`, `LICENSE`      | Include `Imports`, `Suggests`, `Authors@R`, versioning |
+| Add vignettes                 | Write long-form examples using `usethis::use_vignette()`     | CRAN and BioC require it                               |
+| Unit testing                  | Write `testthat` scripts to verify behavior                  | `usethis::use_testthat()` sets up structure            |
+| Package build & install       | Use `devtools::install()`, `check()`, `build()`              | Run `rcmdcheck()` locally or with GitHub Actions       |
+| CRAN/BioC submission          | Follow format checks and `BiocCheck()`                       | BioC requires weekly commits during review             |
+
+### 10.2. Python CLI Tool & Package Development
+
+| Sub-Skill                     | Learn To...                                              | Tools & Notes                                                                           |
+| ----------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Write command-line interfaces | Use `argparse`, `click`, or `typer` for CLI logic        | Modularize main functions                                                               |
+| Setup packaging               | Define `setup.py`, `pyproject.toml`, `__init__.py`       | Install via `pip install .`                                                             |
+| Create modules & scripts      | Split tools into logical files (`utils.py`, `main.py`)   | Reuse functions across tools                                                            |
+| Publish to PyPI               | Register your package with version, license, description | Use `twine upload dist/*`                                                               |
+| Unit tests & coverage         | Use `pytest`, `unittest`, `coverage`, `tox`              | Test logic + input/output integrity                                                     |
+| Conda packaging               | Write `meta.yaml` for Bioconda                           | Submit pull request to [bioconda-recipes](https://github.com/bioconda/bioconda-recipes) |
+
+### 10.3. Tool Versioning, Distribution, and Releases
+
+| Sub-Skill                | Learn To...                                                  | Tools & Notes                              |
+| ------------------------ | ------------------------------------------------------------ | ------------------------------------------ |
+| Semantic versioning      | Use `MAJOR.MINOR.PATCH` format (e.g., 1.3.2)                 | `DESCRIPTION`, `setup.py`, Git tags        |
+| GitHub releases          | Create release tags with changelog and binaries              | Use `gh release create` or GitHub UI       |
+| GitHub Actions for CI/CD | Automate `R CMD check`, `pytest`, `coverage`, release builds | YAML workflows in `.github/workflows`      |
+| Binder / Docker deploy   | Wrap tool in Docker and serve with Binder or DockerHub       | Great for interactive tutorials            |
+| Documentation sites      | Use `pkgdown` (R) or `Sphinx/MkDocs` (Python)                | Host via GitHub Pages                      |
+| Citation files           | Add `CITATION`, Zenodo DOI, and `codemeta.json`              | So your software can be cited like a paper |
+
+### 10.4. Best Practices in Packaging
+
+| Principle                                   | Why It Matters                                                 |
+| ------------------------------------------- | -------------------------------------------------------------- |
+| Write small, testable functions             | Easier to debug, document, and reuse                           |
+| Avoid hardcoded paths and assumptions       | Use `here::here()` (R) or `os.path.abspath(__file__)` (Python) |
+| Keep outputs tidy and predictable           | Required for automation in pipelines                           |
+| Separate core logic from CLI or UI          | So it can be tested and re-used in other contexts              |
+| Document everything                         | Functions, outputs, edge cases, usage examples                 |
+| Write CHANGELOGs and ROADMAPs               | Useful for collaborators, users, and reviewers                 |
+| Make everything version-controlled and open | GitHub/GitLab is non-negotiable for serious tools              |
+
+</details>
+
+---
+
+## 11. Programmatic Data Access & Automation
+
+Total Time: ~3 weeks  
+Focus: control over accessing public repositories, downloading datasets, parsing metadata, and integrating into pipelines through APIs, web scraping, and FTP scripting.
+
+<details>
+<summary>Know More</summary>
+
+### 11.1. RESTful APIs for Biological Databases
+
+| Sub-Skill               | Learn To...                                                            | APIs & Tools                                        |
+| ----------------------- | ---------------------------------------------------------------------- | --------------------------------------------------- |
+| Understand REST APIs    | Use `GET`, `POST`, headers, parameters                                 | Learn to read API docs (JSON inputs/outputs)        |
+| Query NCBI E-utilities  | Use `esearch`, `efetch`, `esummary` to retrieve BioSample/SRA metadata | `rentrez`, `biopython`, or direct via `requests`    |
+| Fetch MGnify metadata   | Access study/sample/taxon/functional annotations                       | `https://www.ebi.ac.uk/metagenomics/api/`           |
+| Access UniProt records  | Retrieve protein sequences, GO terms, taxonomy                         | `https://rest.uniprot.org/`, `biomaRt`, `Biopython` |
+| Query GNPS/MetaboLights | Get metabolomics datasets, chemical IDs                                | GNPS REST API, ReDU APIs                            |
+| EPA/Exposome datasets   | Use `epa.gov` endpoints, CompTox API                                   | Useful for exposure chemistry and risk data         |
+
+### 11.2. Python + R for Programmatic Access
+
+| Sub-Skill                | Learn To...                                                               | Tools                                                     |
+| ------------------------ | ------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Use `requests` in Python | Programmatically send GET/POST, parse JSON                                | Perfect for all REST APIs                                 |
+| Use `httr` in R          | R wrapper to make web queries                                             | Pairs with `jsonlite::fromJSON()`                         |
+| Parse JSON, XML, CSV     | Clean and extract fields from API outputs                                 | `jsonlite`, `xml2`, `pandas.read_json()`, `ElementTree`   |
+| Retry logic and timeouts | Handle API failures with graceful retries                                 | Use `tryCatch` (R), `try/except` (Python), `backoff` libs |
+| Build downloaders        | Write scripts that download raw FASTQ, metadata, annotation files via API | Modular CLI downloaders for projects                      |
+
+### 11.3. FTP / Aspera / HTTP Direct File Retrieval
+
+| Sub-Skill              | Learn To...                                           | Tools                              |
+| ---------------------- | ----------------------------------------------------- | ---------------------------------- |
+| Connect to FTP servers | Navigate FTPs from ENA, NCBI, EBI, etc.               | `wget`, `curl`, `lftp`, `ncftp`    |
+| Download with `wget`   | Automate large file downloads with wildcards, filters | Use `wget -r -l1 -A ".fna.gz"`     |
+| Use Aspera/aspera-cli  | Speed up large file downloads (faster than FTP)       | Used with SRA, EGA, ENA            |
+| Directory traversal    | Parse file trees and download only what you need      | Automate data syncs with scripting |
+
+### 11.4. Web Scraping (When APIs Don’t Exist)
+
+| Sub-Skill                           | Learn To...                                                       | Tools                                 |
+| ----------------------------------- | ----------------------------------------------------------------- | ------------------------------------- |
+| Extract data from HTML tables/pages | Use XPath, CSS selectors, or regex                                | `rvest` (R), `BeautifulSoup` (Python) |
+| Simulate form submissions           | Handle POST forms with payloads                                   | `requests.post()`                     |
+| Headless browsing                   | Interact with JavaScript-rendered pages                           | `selenium`, `RSelenium`, `playwright` |
+| Ethics and etiquette                | Respect `robots.txt`, avoid overloading servers, use `user-agent` | Follow FAIR data principles           |
+
+### 11.5. Batch Query and Data Wrangling Strategies
+
+| Sub-Skill              | Learn To...                                                    | Tools                                  |
+| ---------------------- | -------------------------------------------------------------- | -------------------------------------- |
+| Batch queries          | Chunk 1000s of queries into multiple calls                     | Use `split()`, rate limiting, sleeps   |
+| BioSample ID workflows | Go from assembly → BioSample → metadata → download             | Use `efetch` chains or custom logic    |
+| Clean messy metadata   | Deduplicate fields, standardize units, merge tables            | Use `pandas`, `dplyr`, `janitor`       |
+| Merge with omics data  | Join programmatically retrieved metadata with abundance tables | Use `left_join`, `merge`, `pd.merge()` |
+
+### 11.6. Automating and Integrating into Pipelines
+
+| Sub-Skill                 | Learn To...                                         | Tools                                     |
+| ------------------------- | --------------------------------------------------- | ----------------------------------------- |
+| Write CLI downloaders     | Wrap API/FTP scripts into command-line tools        | `argparse`, `optparse`, `click`, `docopt` |
+| Cache results             | Store API responses locally to avoid repeated calls | Use `.cache/`, `memoise`, or save JSONs   |
+| Logging                   | Log successes/failures/downloads                    | `logging` (Py), `futile.logger` (R)       |
+| Use in Snakemake/Nextflow | Integrate metadata fetching into rules or processes | Fully automated input generation          |
+
+</details>
+
+---
