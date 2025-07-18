@@ -731,3 +731,79 @@ Focus: control over accessing public repositories, downloading datasets, parsing
 </details>
 
 ---
+
+
+## 12. Data Visualization & Interactive Communication
+
+Total Time: ~4 weeks  
+Focus: clear, interpretable, and publication-grade visualizations.
+
+<details>
+<summary>Know More</summary>
+
+### 12.1. Publication-Quality Static Visualizations
+
+| Sub-Skill                   | Learn To...                                                            | Tools & Notes                                          |
+| --------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------ |
+| Grammar of graphics         | Use `ggplot2` in R or `seaborn/matplotlib` in Python for layered plots | Build from `aes()` and `geom_*()` up                   |
+| Customize themes and scales | Use `theme()`, `scale_*_manual()`, `facet_wrap()`                      | Create consistent, journal-quality figures             |
+| Save with high resolution   | Use `ggsave(filename, dpi = 600)` or `plt.savefig(dpi=600)`            | Always generate vector + raster versions               |
+| Combine panels              | Use `patchwork`, `cowplot`, or `matplotlib.gridspec`                   | For composite figures and multi-omics overlays         |
+| Add annotations             | Show stats, significance, highlights                                   | `geom_text()`, `annotate()`, or `stat_compare_means()` |
+
+Common plots - must master:
+- Heatmaps (with clustering or ordering)
+- Volcano plots, MA plots
+- PCA, PCoA, NMDS
+- Boxplots + jitter/dot
+- Time series + spline/loess smoothing
+- Correlation matrices
+- Network plots (functional or taxon co-occurrence)
+- Phylogenetic trees (with metadata overlay)
+
+### 12.2. Interactive Visualizations
+
+| Sub-Skill                         | Learn To...                                            | Tools & Notes                                       |
+| --------------------------------- | ------------------------------------------------------ | --------------------------------------------------- |
+| Build tooltips and zoomable plots | Use `plotly`, `ggplotly()`, `plotly.express`, `Altair` | Interactive scatter, heatmap, volcano, or PCA plots |
+| Highlight dynamic subsets         | Allow filters, sliders, selectors                      | Used in Shiny or Dash                               |
+| Animate time or group shifts      | Use `gganimate`, `plotly`, or `dash_core_components`   | For exposomics and longitudinal omics               |
+| Render large datasets smoothly    | Use `datatables`, `reactable`, `dash_table.DataTable`  | Supports rapid querying and exploration             |
+
+### 12.3. Phylogenetic & Hierarchical Visualization
+
+| Sub-Skill                   | Learn To...                                                     | Tools                                                |
+| --------------------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| Draw trees with annotations | Use `ggtree`, `iTOL`, `ape`, `ete3`, `phylotree.js`             | Annotate with function, abundance, metadata          |
+| Visualize GO/KEGG hierarchy | Show ontology structure with term labels and enrichment results | `REVIGO`, `topGO`, `ggraph`, `graphviz`, `circlize`  |
+| Clustered heatmaps          | Combine distance metrics with abundance tables                  | `pheatmap`, `ComplexHeatmap`, `seaborn.clustermap()` |
+
+### 12.4. Network Visualization
+
+| Sub-Skill                      | Learn To...                                                       | Tools                                                   |
+| ------------------------------ | ----------------------------------------------------------------- | ------------------------------------------------------- |
+| Generate force-directed graphs | Use `igraph`, `ggraph`, `visNetwork`, `networkx`                  | For spacerome, co-abundance, or function-function links |
+| Bipartite and tripartite plots | Model taxa–function–exposure or host–microbe–chemical connections | Visualize layered relationships                         |
+| Overlay metadata on networks   | Size/color nodes by metadata (abundance, category, etc.)          | Use edge thickness or node fill                         |
+| Export for Cytoscape           | Save as `.graphml` or `.gml` for full network annotation          | Cytoscape excels at complex layouts                     |
+
+### 12.5. Dashboarding & Web Applications
+
+| Sub-Skill                    | Learn To...                                        | Tools                                          |
+| ---------------------------- | -------------------------------------------------- | ---------------------------------------------- |
+| Build dashboards in R        | Use **Shiny**, `shinydashboard`, `DT`, `plotly`    | Deployable on shinyapps.io or internal server  |
+| Build dashboards in Python   | Use **Dash**, `dash_core_components`, `dash_table` | Flask-style flexibility                        |
+| Modular app design           | Structure app as multiple reactive components      | Required for reusability                       |
+| Secure deployment (optional) | Add login, user-level access, persistent data      | `auth0`, `firebase`, or server-based solutions |
+
+### 12.6. Figure Legends, Captions, and Manuscript Context
+
+| Sub-Skill                             | Learn To...                                                                           | Tools                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Write detailed figure captions        | Include: what’s shown, what’s important, how to read it, how significance is computed | Often the most ignored yet essential part of a figure |
+| Connect visuals to biological meaning | Move beyond "blue is high, red is low" — interpret patterns in context                | Tell a story, don’t just show a plot                  |
+| Version control for figures           | Save different versions during revision                                               | Use suffixes or GitHub to track                       |
+
+</details>
+
+---
