@@ -1,0 +1,33 @@
+bookdown::gitbook:
+  css: style.css         # Optional custom styles (you can add this later)
+  split_by: chapter
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">Computational One Health</a></li>
+    download: ["pdf", "epub"]
+    search: true
+    toolbar:
+      position: fixed
+    info: true
+    sharing:
+      github: true
+      facebook: false
+      twitter: false
+
+bookdown::pdf_book:
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: true
+  includes:
+    in_header: preamble.tex  # Optional LaTeX preamble for styling
+  toc: true
+  number_sections: true
+
+bookdown::epub_book:
+  toc: true
+  number_sections: true
+  fig_caption: true
+  dpi: 600
+  

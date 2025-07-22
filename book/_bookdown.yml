@@ -1,0 +1,7 @@
+book_filename: "computational-onehealth"
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files:
+  - index.Rmd
+  - 01_microbiome_ecology.Rmd
