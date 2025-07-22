@@ -4,16 +4,6 @@ This repository tracks my technical skill-building journey across 24 months (2 h
 
 ---
 
-## Categories
-
-- [1. Biological Domain Knowledge](#1-biological-domain-knowledge)
-- [2. Biostatistics & Quantitative Modeling](#2-biostatistics--quantitative-modeling)
-- [3. Programming & Scripting](#3-programming--scripting)
-- [4. Pipeline Development & Workflow Management](#4-pipeline-development--workflow-management)
-- [5. Containerization & Reproducibility](#5-containerization--reproducibility)
-
----
-
 ## 1. Biological Domain Knowledge
 
 Total Time: ~7 weeks  
