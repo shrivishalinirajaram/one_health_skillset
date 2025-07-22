@@ -1192,7 +1192,7 @@ Focus: Build, test, and deploy your pipelines, packages, or dashboards automatic
 
 ## 20. Causal Inference & Intervention Modeling
 
-Total Time: ~5 weeks  
+Total Time: ~2 weeks  
 Focus: Causal graphs, counterfactual reasoning, and g-methods
 
 <details>
