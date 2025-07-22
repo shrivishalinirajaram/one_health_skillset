@@ -1176,3 +1176,55 @@ Focus: collaborate with interdisciplinary teams, deploy tools and pipelines, and
 | Track provenance & reproducibility   | Ensure workflow + code + data are re-runnable from scratch | Use containerized + version-controlled setup |
 
 ---
+
+## 19. Continuous Integration & Deployment (CI/CD)
+
+Total Time: ~2 weeks  
+Focus: Build, test, and deploy your pipelines, packages, or dashboards automatically
+
+<details>
+<summary>Know More</summary>
+
+### 19.1. CI/CD Core Concepts
+
+| Sub-Skill                         | Learn To...                           | Tools                                            |
+| --------------------------------- | ------------------------------------- | ------------------------------------------------ |
+| Set up automated workflows        | Trigger on push, pull requests, tags  | GitHub Actions, CircleCI                         |
+| Run package tests automatically   | Validate builds for R/Python packages | `rcmdcheck`, `testthat`, `pytest`, `lintr`       |
+| Auto-build and deploy docs        | Publish Quarto sites, pkgdown docs    | GitHub Pages, Netlify, `quarto publish`          |
+| Build & test containers           | Validate Docker/Singularity builds    | `docker build`, `snakemake --use-singularity`    |
+| Integration testing for pipelines | Use test configs and data             | `nf-test` (Nextflow), mini datasets in Snakemake |
+| Send automated reports            | Notify team or yourself on pass/fail  | Slack, email, or GitHub issue comments           |
+
+</details>
+
+---
+
+## 20. Causal Inference & Intervention Modeling
+
+Total Time: ~5 weeks  
+Focus: Causal graphs, counterfactual reasoning, and g-methods
+
+<details>
+<summary>Know More</summary>
+
+### 20.1. Foundations of Causal Thinking
+
+| Sub-Skill                                      | Learn To...                                    | Tools                                               |
+| ---------------------------------------------- | ---------------------------------------------- | --------------------------------------------------- |
+| Construct and interpret DAGs                   | Identify confounding, mediation, collider bias | `ggdag`, `dagitty`, `bnlearn`                       |
+| Identify causal paths vs. spurious paths       | Understand d-separation, backdoor criterion    | DAG-based reasoning                                 |
+| Design observational studies to emulate trials | Causal diagrams, synthetic control             | Structural assumptions, inverse probability weights |
+
+### 20.2. Applied Causal Modeling
+
+| Sub-Skill                           | Learn To...                                                     | Tools                                           |
+| ----------------------------------- | --------------------------------------------------------------- | ----------------------------------------------- |
+| Estimate causal effects             | Average Treatment Effect (ATE), mediation                       | `mediation`, `MatchIt`, `DoWhy`, `causalimpact` |
+| Handle time-varying exposures       | MSMs, g-methods                                                 | `ipw`, `gfoRmula`                               |
+| Causal discovery                    | Learn DAGs from omics data                                      | PC algorithm, NOTEARS, `pycausal`, `bnlearn`    |
+| Integrate into exposomics workflows | Model how environmental exposures affect disease via microbiome | Mediation analysis with multi-omics inputs      |
+
+</details>
+
+---
