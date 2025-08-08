@@ -61,6 +61,11 @@ $$
 For **continuous** variables, it gives the **probability density function (PDF)** that describes the likelihood of values within a range.
 This is often visualized as a curve. Total area under the curve = 1.
 
+$$
+\int_{-\infty}^{\infty} f(x)\, dx = 1
+$$
+
+
 **Probability Density Function (PDF)**  
 For a continuous random variable \( X \):
 
@@ -84,4 +89,25 @@ $$
    $$ 
    f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} 
    $$
+
+As the value of \( \sigma \) increases, the curve becomes wider and flatter.
+The value of \( \mu \) shifts the curve left or right.
+[Interactive Normal Distribution Visualizer](https://istats.shinyapps.io/NormalDist/)
+
+Properties:
+- Symmetric around the mean. 
+- Mean, median, and mode are equal. (_if not, it is not normal_)
+- Approximately 68% of data within 1σ, 95% within 2σ, and 99.7% within 3σ from the mean (Empirical Rule).
+- Defined by two parameters: mean (μ) and standard deviation (σ).
+- Unimodal - has a single peak. (_if bimodal, it is not normal, it might indicate subgroups or batch effects_)
+- Asymptotic - tails approach the horizontal axis but never touch it.
+- Skewness = 0 (no skew) - measures asymmetry of a distribution.
+    - Left-skewed → longer tail on the left
+    - Right-skewed → longer tail on the right (_Relative abundances (e.g., Prevotella) are often right-skewed - many zeros, few large values_)
+- Kurtosis = 3 (mesokurtic - baseline for measuring "peakedness").
+For Normal:
+ - Kurtosis (excess)=0(or full kurtosis = 3)
+ - If kurtosis > 3 → leptokurtic (sharper peak, heavier tails)
+ - If kurtosis < 3 → platykurtic (flatter, lighter tails)
+_High kurtosis → extreme values more common than expected._
 
