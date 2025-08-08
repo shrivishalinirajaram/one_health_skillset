@@ -1,0 +1,87 @@
+---
+title: "Statistics for Microbiome"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+## Data distribution
+
+A distribution describes how values of a variable are spread out. Say **Shape** of a data.
+
+It answers questions like:
+
+- What values are most common?
+- Are most values small or large?
+- Are there many zeros or extreme outliers?
+- Is the distribution symmetric, skewed, or multimodal?
+
+Basically it is the fingerprint of variability in a dataset.
+
+## **Why knowing the type of distribution is so important?**
+
+- Determines the choice of statistical tests.
+- Influences the interpretation of results.
+- Helps in understanding the underlying biological processes.
+- Affects the assumptions of normalization and models used in microbiome analysis.
+
+**When we say assumptions, what will happen if the data does not follow the assumed distribution?**
+
+- p values of the statistical tests may not be valid.
+- Confidence intervals may be misleading.
+- Model predictions may be inaccurate.
+- Normalization methods may not work as expected.
+- Biological interpretations may be flawed.
+
+If we plotted all the values on a graph, the distribution is the curve we would see.
+
+Say for eg., 
+You measured the relative abundance of a bacteria across 100 samples.
+
+- If it is always around 0.2 ---> tight, narrow distribution
+- If it jumps from 0 to 0.8 wildly ---> wide, scattered distribution
+- If it is mostly 0, but a few have 0.9 ---> zero-inflated, skewed distribution
+- If it has multiple peaks ---> multimodal distribution
+
+A probability distribution is a mathematical function that describes the likelihood of different outcomes in a random variable.
+
+It provides a complete description of the variability in the data.
+
+For **discrete** variables, it gives the **probability mass function (PMF)** i.e., the probability of each possible value.
+
+**Probability Mass Function (PMF)**  
+For a discrete random variable \( X \):
+
+$$
+P(X = x) = p(x), \quad \text{where} \quad \sum_{x} p(x) = 1
+$$
+
+
+For **continuous** variables, it gives the **probability density function (PDF)** that describes the likelihood of values within a range.
+This is often visualized as a curve. Total area under the curve = 1.
+
+**Probability Density Function (PDF)**  
+For a continuous random variable \( X \):
+
+$$
+f(x) \geq 0, \quad \text{and} \quad \int_{-\infty}^{\infty} f(x) \, dx = 1
+$$
+
+Probability that \( X \) lies in an interval \([a, b]\) is:
+
+$$
+P(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx
+$$
+
+### Common types of distributions
+
+1. **Normal Distribution (Gaussian)**  
+   - Bell-shaped curve, symmetric around the mean.
+   - Characterized by mean (μ) - center and standard deviation (σ) - Spread.
+   - Many statistical tests assume normality.
+
+   $$ 
+   f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} 
+   $$
+
