@@ -142,4 +142,9 @@ Skewness decreases as the \( \lambda \) increases.
 Note: 
 - This is a non-negative value
 - For a larger \( \lambda \), the distribution looks normal.
-- 
+- Mean = Variance = λ
+
+Though the microbiome count data seems to be a good fit for Poisson distribution, there are challenges in that assumption
+Poisson has mean == variance. However, microbiome data is overdispersed (variance >>> mean). Also, poisson ignores excess zeroes and compositionality.
+So, we can use poisson only for theoretical derivations and null simulations.
+
