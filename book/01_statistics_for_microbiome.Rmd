@@ -98,6 +98,8 @@ Properties:
 - Symmetric around the mean. 
 - Mean, median, and mode are equal. (_if not, it is not normal_)
 - Approximately 68% of data within 1σ, 95% within 2σ, and 99.7% within 3σ from the mean (Empirical Rule).
+   - A quick approximation of how much data falls within a range of the mean, assuming the data is Normally distributed.
+   - Basis for confidence intervals and outliers detection
 - Defined by two parameters: mean (μ) and standard deviation (σ).
 - Unimodal - has a single peak. (_if bimodal, it is not normal, it might indicate subgroups or batch effects_)
 - Asymptotic - tails approach the horizontal axis but never touch it.
@@ -110,5 +112,6 @@ For Normal:
  - If kurtosis > 3 → leptokurtic (sharper peak, heavier tails)
  - If kurtosis < 3 → platykurtic (flatter, lighter tails)
 _High kurtosis → extreme values more common than expected._
+
 
 
