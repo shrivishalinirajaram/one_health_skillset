@@ -114,4 +114,32 @@ For Normal:
 _High kurtosis → extreme values more common than expected._
 
 
+2. **Poisson Distribution**
 
+This gives the counts of events in a fixed time or space.
+if and only if:
+Events occur independently
+Happens at a constant average rate \( \lambda \)
+The chance of two events happening at exactly same time is negligible.
+
+How many times will a particular event occur at a fixed time window?
+
+Poisson is a discrete value like the counts/OTUs in the microbiome sample subset.
+
+So the PMF will be,
+
+$$
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \dots
+$$
+
+k: observed count (0, 1, 2, …)
+λ (lambda): expected count (mean rate)
+e: 2.718... (Euler’s number)
+
+Skewness decreases as the \( \lambda \) increases.
+[Visualization of Poisson distribution](https://istats.shinyapps.io/PoissonDist/)
+
+Note: 
+- This is a non-negative value
+- For a larger \( \lambda \), the distribution looks normal.
+- 
