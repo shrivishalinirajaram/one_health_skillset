@@ -1,6 +1,6 @@
 ---
 title: "Statistics for Microbiome"
-author: "Your Name"
+author: "Shri Vishalini Rajaram"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -17,13 +17,13 @@ It answers questions like:
 - Are there many zeros or extreme outliers?
 - Is the distribution symmetric, skewed, or multimodal?
 
-Basically it is the fingerprint of variability in a dataset.
+Basically, it is the fingerprint of variability in a dataset.
 
 ## **Why knowing the type of distribution is so important?**
 
 - Determines the choice of statistical tests.
 - Influences the interpretation of results.
-- Helps in understanding the underlying biological processes.
+- Helps understand the underlying biological processes.
 - Affects the assumptions of normalization and models used in microbiome analysis.
 
 **When we say assumptions, what will happen if the data does not follow the assumed distribution?**
@@ -110,4 +110,5 @@ For Normal:
  - If kurtosis > 3 → leptokurtic (sharper peak, heavier tails)
  - If kurtosis < 3 → platykurtic (flatter, lighter tails)
 _High kurtosis → extreme values more common than expected._
+
 
