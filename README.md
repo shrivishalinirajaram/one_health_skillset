@@ -1,5 +1,7 @@
 # One Health Microbiome + Exposomics Skill Roadmap
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16791253.svg)](https://doi.org/10.5281/zenodo.16791252)
+
 ![One Health](https://www.huck.psu.edu/assets/uploads/documents/OHMC_figure-Borderless.jpg)
 
 This repository tracks my technical skill-building journey across 24 months (2 hours/day), focused on computational biology, exposomics, and microbiome science in the One Health framework.
