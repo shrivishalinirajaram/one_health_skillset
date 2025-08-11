@@ -1050,7 +1050,7 @@ Focus: mimic real-world complexity — including sparsity, zero-inflation, overd
 
 ---
 
-## 16. Ontology Mapping & Semantic Harmonization
+## 17. Ontology Mapping & Semantic Harmonization
 
 Total Time: ~5 weeks  
 Focus: standardized, machine-readable, and biologically meaningful annotations, cross-study comparison, integration, and semantic search.
@@ -1164,6 +1164,8 @@ Focus: collaborate with interdisciplinary teams, deploy tools and pipelines, and
 | Create full project documentation    | README, LICENSE, environment.yml, inputs/outputs           | Mimic professional repositories              |
 | Publish metadata and data openly     | Submit to MGnify, SRA, BioSamples, GNPS, PANGEA            | Respect privacy/ethics for human data        |
 | Track provenance & reproducibility   | Ensure workflow + code + data are re-runnable from scratch | Use containerized + version-controlled setup |
+
+</details>
 
 ---
 
