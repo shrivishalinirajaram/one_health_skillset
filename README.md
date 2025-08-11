@@ -21,7 +21,6 @@ Focus: Microbiome ecology, host–microbe–toxin interaction, One Health, expos
 | Colonization resistance & dysbiosis | Identify when microbial communities shift toward pathogenic states    | Important for exposome impact assessment          |
 | Cross-biome connections             | Compare oral–gut–skin–lung microbiomes                                | One Health relevance in zoonotic exchange         |
 
-
 ### 1.2. Host–Microbe Interactions
 
 | Sub-Skill                      | Learn To...                                                           | Notes                                        |
@@ -469,7 +468,7 @@ Focus: Gene and protein functional annotation, pathway enrichment, metabolic rec
 ## 8: Multi-Omics Integration & Modeling
 
 Total Time: ~5 weeks  
-Focus: combine, correlate, and co-model different layers of omics (e.g., metagenomics + transcriptomics + metaproteomics + metabolomics + exposomics) 
+Focus: combine, correlate, and co-model different layers of omics (e.g., metagenomics + transcriptomics + metaproteomics + metabolomics + exposomics)
 
 <details>
 <summary>Know More</summary>
@@ -741,6 +740,7 @@ Focus: clear, interpretable, and publication-grade visualizations.
 | Add annotations             | Show stats, significance, highlights                                   | `geom_text()`, `annotate()`, or `stat_compare_means()` |
 
 Common plots - must master:
+
 - Heatmaps (with clustering or ordering)
 - Volcano plots, MA plots
 - PCA, PCoA, NMDS
