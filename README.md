@@ -267,6 +267,7 @@ Focus: Snakemake, Nexflow, Portability and Sharing
 
 ---
 
+
 ## 5. Containerization & Environment Management
 
 Total Time: ~5 weeks  
