@@ -118,6 +118,7 @@ Focus: GLMs, ZINB, PERMANOVA, compositional stats, differential abundance, mixed
 | Compositional-aware methods | Use `ALDEx2`, `ANCOM-BC`, `MaAsLin2`, `metagenomeSeq`         | Choose based on effect size structure, covariates, and sparsity |
 | Model comparison & post-hoc | Compare fit via AIC/BIC; apply post-hoc Tukey or emmeans      | Necessary when doing multi-group comparisons                    |
 
+
 ### 2.5. Multivariate & Ordination Methods
 
 | Sub-Skill                 | Learn To...                                                   | Notes                                                   |
